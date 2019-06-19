@@ -1,0 +1,46 @@
+1. Create the tables for User, Circle, User_Circle, Messages and User_Inbox (to be created with help of Triggers)
+CTREATE TRIGGER EVENT AFTER MESSAGES 
+ON USER, CIRCLE, USER_CIRCLE, MESSAGES, USER_INBOX;
+
+2. Insert the rows into the created tables (User, Circle, User_Circle, and Messages)
+INSERT INTO USER VALUES('ADITYA',23,'TEACHER');
+INSERT INTO CIRCLE VALUES('258','RADIUS','DIAMETER','AREA',06-JUN-2000);
+INSERT INTO USER_CIRCLE VALUES('SUNLIFE','COMMUNITY',236);
+iNSERT INTO MESSAGES VALUES('2','RV100','HI','BYE');
+
+3. Fetch the row from User table based on Id and Password.
+SELECT * FROM USER WHERE ID = 23 ANS PASSWORD = 'TEACHER';
+
+4. Fetch all the rows from Circle table based on the field created_by.
+SELECT CREATED_BY FROM CIRCLE;
+
+5. Fetch all the Circles created after the particular Date.
+SELECT * FROM CIRCLE WHERE CREATED_DATE > '06-JUN-2000';
+
+6. Fetch all the User Ids from UserCircle table subscribed to particular Circle.
+SELECT UC.USER_ID FROM USER_CIRCLE US, CIRCLE C WHERE US.USER_CIRCLE = C.CIRCLE AND C.SUBSCRIPTION = 'Y'; 
+
+7. Write upDate query to unsubscribe to particular Circle for the given User Id.
+UPDATE CIRCLE SET SUBSCRIBE = 'NO' WHERE USER_ID = 'RCDEF';
+
+8. Fetch all the Messages from the Messages table sent by a particular User.
+SELECT SENDER_MESSAGES FROM MESSAGE WHERE SENDER_USER_ID = 'RV100';
+
+9. Fetch all the Messages from the Messages table received by a particular User.
+SELECT RECIEVER_MESSAGES FROM MESSAGE WHERE RECIEVER_USER_ID = '2';
+
+10. Fetch all the Messages from the Messages table sent/received by a particular User. (both the Messages)
+SELECT SENDER_MESSAGES AND RECIEVER_MESSAGES FROM MESSAGE WHERE SENDER_USER__ID = 'RV100' AND RECIEVER_USER_ID = '2';
+
+11. Write a query to send Message from particular User to another User(Use Message table - insert statement).
+INSERT INTO USER VALUES('ADITYA',(SELECT SENDER_MESSAGES FROM MESSAGE WHERE SENDER_USER_ID = 'RV100'));
+
+12. Write a query to send Message from particular User to particular Circle(Use Message table - insert statement)
+INSERT INTO USER VALUES('ADITYA',(SELECT SENDER_MESSAGES FROM MESSAGE WHERE SENDER_USER_ID = 'RV100').SELECT ANGLE FROM CIRCLE);
+
+13. Write a query to delete particular Message which you received from User(User Inbox table - delete statement)
+DELETE FROM USER_INBOX UI, USER U WHERE UI.USER_INBOX = U.USER;
+
+14. Write a query to delete particular Message which you received from particular Circle(User Inbox table - delete statement)
+DELETE FROM USER_INBOX UI, CIRCLE C WHERE UI.USER_INBOX = C.CIRCLE;
+
